@@ -1,8 +1,7 @@
 #include <stdio.h>                                                                                                              
 #include <stdlib.h>
 
-int
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
     FILE *kf;
     size_t ks, n, i;
@@ -10,7 +9,7 @@ main(int argc, char *argv[])
     unsigned char *key, *buf;
 
     if (argc != 2) {
-        fprintf (stderr, "Usage: %s <key>\a\n", argv[0]);
+        fprintf (stderr, "Usage: %s key < input > output\a\n", argv[0]);
         exit(1);
     }
     if ((kf = fopen(argv[1], "rb")) == NULL) {
