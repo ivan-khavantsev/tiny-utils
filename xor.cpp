@@ -10,12 +10,12 @@ int except(string text){
 
 int main(int argc, char *argv[]) {
     if(argc < 3) return except("Usage: xor file1 file2 [fileN] > output-file");
-
     int filesCount = argc-1;
-
     ifstream files[argc];
 
-    for(int i = 0; i < filesCount; i++){
+    int i; // Iterator variable
+
+    for(i = 0; i < filesCount; i++){
         files[i].open(argv[i+1], ios::in | ios::binary);
         if(!files[i].is_open()){
             return except("Cant open file");
@@ -27,10 +27,11 @@ int main(int argc, char *argv[]) {
     char output = 0;
     bool inWork = true;
 
+    int readCount = 0; // Read counter
     while(inWork){
-        for(int i=0; i < filesCount; i++){
+        for(i=0; i < filesCount; i++){
             files[i].read(buffer, 1);
-            int readCount = files[i].gcount();
+            readCount = files[i].gcount();
             if(readCount == 0){
                 inWork = false; break;
             }
