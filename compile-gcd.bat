@@ -1,2 +1,2 @@
-gcc -o gcd.exe gcd.c
+gcc -o build/gcd gcd.c
 pause

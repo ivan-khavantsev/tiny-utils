@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
     for(i = 0; i < filesCount; i++){
         files[i].open(argv[i+1], ios::in | ios::binary);
         if(!files[i].is_open()){
-            return except("Cant open file");
+            return except("Can't open file");
         }
         files[i].seekg(0, ios::beg);
     }

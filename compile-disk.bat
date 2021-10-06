@@ -1,2 +1,2 @@
-g++ -o disk.exe disk.cpp
+g++ -o build/disk disk.cpp
 pause

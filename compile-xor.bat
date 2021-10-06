@@ -1,2 +1,2 @@
-g++ -o xor.exe xor.cpp
+g++ -o build/xor xor.cpp
 pause
