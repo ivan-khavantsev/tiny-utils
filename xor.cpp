@@ -9,7 +9,7 @@ int except(string text){
 }
 
 int main(int argc, char *argv[]) {
-    if(argc < 3) return except("Usage: xor file1 file2 [fileN] > output-file");
+    if(argc < 3) return except("Usage: xor file1 file2 [fileN] > output-file\nThe resulting output will be the same size as the shortest file");
     int filesCount = argc-1;
     ifstream files[argc];
 
@@ -18,9 +18,8 @@ int main(int argc, char *argv[]) {
     for(i = 0; i < filesCount; i++){
         files[i].open(argv[i+1], ios::in | ios::binary);
         if(!files[i].is_open()){
-            return except("Can't open file");
+            return except("Can't open file"); // Add filename
         }
-        files[i].seekg(0, ios::beg);
     }
 
     char buffer[1];
