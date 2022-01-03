@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstring>
 using namespace std;
 
 int except(string text){
@@ -9,14 +10,23 @@ int except(string text){
 }
 
 int main(int argc, char *argv[]) {
-    if(argc < 3) return except("Usage: xor file1 file2 [fileN] > output-file\nThe resulting output will be the same size as the shortest file");
-    int filesCount = argc-1;
-    ifstream files[argc];
+    if(argc < 3) return except("Usage: xor [-i] file1 [fileN] > output-file\nThe resulting output will be the same size as the shortest file");
+    
+	int mode = 0; // Default mode - using only files
+	
+	int filesCount = 0;
+	if(strcmp(argv[1], "-i") == 0){
+		filesCount = argc-2;
+		mode = 1; // Using both files and stdin
+	} else {
+		filesCount = argc-1;
+	} 
+	
+    ifstream files[filesCount+1];
 
     int i; // Iterator variable
-
     for(i = 0; i < filesCount; i++){
-        files[i].open(argv[i+1], ios::in | ios::binary);
+        files[i].open(argv[i+(argc - filesCount)], ios::in | ios::binary);
         if(!files[i].is_open()){
             return except("Can't open file"); // Add filename
         }
@@ -36,6 +46,16 @@ int main(int argc, char *argv[]) {
             }
             output ^= buffer[0];
         }
+		
+		if(mode == 1){
+			cin.read(buffer, 1);
+			readCount = cin.gcount();
+            if(readCount == 0){
+                inWork = false; break;
+            }
+			output ^= buffer[0];
+			
+		}
 
         if(inWork){
             cout << output;
